@@ -1,0 +1,77 @@
+[gd_scene load_steps=8 format=3 uid="uid://bd1d7f4ghsoha"]
+
+[ext_resource type="Script" path="res://test_scene.gd" id="1_dv2vy"]
+[ext_resource type="ArrayMesh" uid="uid://ck4rwqbhr2sgd" path="res://Gobot/Model/gobot.res" id="1_w416k"]
+[ext_resource type="ArrayMesh" uid="uid://xgw78gba1uhl" path="res://PostProcess/post_process_triangle.obj" id="1_wy7dd"]
+[ext_resource type="Material" uid="uid://cwjjjeyqj1c6d" path="res://PostProcess/post_process.material" id="2_7xmfs"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qrjwh"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_lp7p3"]
+sky_material = SubResource("ProceduralSkyMaterial_qrjwh")
+
+[sub_resource type="Environment" id="Environment_6r1ug"]
+background_mode = 2
+sky = SubResource("Sky_lp7p3")
+tonemap_mode = 2
+
+[node name="TestScene" type="Node3D"]
+script = ExtResource("1_dv2vy")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_6r1ug")
+
+[node name="Gobot" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_w416k")
+
+[node name="PostProcess" type="MeshInstance3D" parent="."]
+visible = false
+mesh = ExtResource("1_wy7dd")
+surface_material_override/0 = ExtResource("2_7xmfs")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.95882, 0.284015, 0, -0.284015, 0.95882, 0, 1.085, 1.259)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 373.0
+grow_vertical = 2
+
+[node name="ToggleMSAA" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+text = "Toggle MSAA"
+
+[node name="ToggleSSR" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+text = "Toggle SSR"
+
+[node name="TogglePostProcess" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+text = "Toggle Post Process"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Metalness:
+"
+
+[node name="MetalnessSlider" type="HSlider" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[connection signal="toggled" from="VBoxContainer/ToggleMSAA" to="." method="_on_msaa_toggled"]
+[connection signal="toggled" from="VBoxContainer/ToggleSSR" to="." method="_on_ssr_toggled"]
+[connection signal="toggled" from="VBoxContainer/TogglePostProcess" to="." method="_on_post_process_toggled"]
+[connection signal="value_changed" from="VBoxContainer/HBoxContainer/MetalnessSlider" to="." method="_on_metalness_slider_value_changed"]

@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://xgw78gba1uhl"
+path="res://.godot/imported/post_process_triangle.obj-58cf1f25de1efbee06f285fad0f69c61.mesh"
+
+[deps]
+
+files=["res://.godot/imported/post_process_triangle.obj-58cf1f25de1efbee06f285fad0f69c61.mesh"]
+
+source_file="res://PostProcess/post_process_triangle.obj"
+dest_files=["res://.godot/imported/post_process_triangle.obj-58cf1f25de1efbee06f285fad0f69c61.mesh", "res://.godot/imported/post_process_triangle.obj-58cf1f25de1efbee06f285fad0f69c61.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
